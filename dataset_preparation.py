@@ -35,9 +35,9 @@ INSERT_SEARCH_SEQUENCE_FILE = os.path.join(DATA_PATH, "insert_search_sequence.tx
 # functions
 #-----------------------------------------------------
 # initialize_files()
-# append_key(file_name, key)
+# append_csv(file_name, key)
 # append_command(file_name, opcode, key)
-# read_keys(file_name)
+# read_csv(file_name)
 # read_commands(file_name)
 #-----------------------------------------------------
 
@@ -49,9 +49,15 @@ def initialize_files():
     with open(INSERT_SEARCH_SEQUENCE_FILE, "w") as file_object:
         file_object.write("")
 
-def append_key(file_name, key):
+def append_csv(file_name, value):
     with open(file_name, "a") as file_object:
-        file_object.write(str(key) + ",")
+        file_object.write(str(value) + ",")
+
+def read_csv(file_name):
+    with open(file_name, "r") as file_object:
+        values = file_object.read().split(",")
+        values = values[:-1]
+        return values
 
 def append_command(file_name, opcode, key):
     with open(file_name, "a+") as file_object:
@@ -60,12 +66,6 @@ def append_command(file_name, opcode, key):
         if len(data) > 0:
             file_object.write("\n")
         file_object.write(str(opcode) + " " + str(key))
-
-def read_keys(file_name):
-    with open(file_name, "r") as file_object:
-        keys = file_object.read().split(",")
-        keys = keys[:-1]
-        return keys
 
 def read_commands(file_name):
     with open(file_name, "r") as file_object:
@@ -87,8 +87,8 @@ def main():
     key_set = []
     for i in range(NUMBER_OF_INSERT):
         key = random.randint(0, MAX_KEY)
-        append_key(KEY_SET_FILE, key)
-    key_set = read_keys(KEY_SET_FILE)
+        append_csv(KEY_SET_FILE, key)
+    key_set = read_csv(KEY_SET_FILE)
 
     # -----------------------------------
     # search sequence generation
@@ -100,18 +100,18 @@ def main():
         if(p1<=7):
             p2 = random.randint(1, 5)
             if(p2==1):
-                search_key_set = read_keys(SEARCH_SEQUENCE_FILE)
+                search_key_set = read_csv(SEARCH_SEQUENCE_FILE)
                 if(len(search_key_set)>0):
                     search_key_set_index = random.randint(0, len(search_key_set)-1)
-                    append_key(SEARCH_SEQUENCE_FILE, search_key_set[search_key_set_index])
+                    append_csv(SEARCH_SEQUENCE_FILE, search_key_set[search_key_set_index])
             else:
                 key_set_index = random.randint(0, NUMBER_OF_KEYS-1)
-                append_key(SEARCH_SEQUENCE_FILE, key_set[key_set_index])
+                append_csv(SEARCH_SEQUENCE_FILE, key_set[key_set_index])
         else:
             key = random.randint(0, MAX_KEY)
-            append_key(SEARCH_SEQUENCE_FILE, key)
+            append_csv(SEARCH_SEQUENCE_FILE, key)
 
-    search_key_set = read_keys(SEARCH_SEQUENCE_FILE)
+    search_key_set = read_csv(SEARCH_SEQUENCE_FILE)
 
     # -----------------------------------
     # insert search sequence generation

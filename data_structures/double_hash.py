@@ -13,14 +13,14 @@ class DoubleHash:
 	# p					= a prime < table_size
 	#-----------------------------------------------------
 	# double_hash(k) 	= (h1(k) - i*h2(k)) % table_size
-	# h1(k) 			= k % table_size 
-	# h2(k) 			= p - (k % p)					
+	# h1(k) 			= k % table_size
+	# h2(k) 			= p - (k % p)
 	#-----------------------------------------------------
 
 	def __init__(self, table_size):
 		self.table_size = table_size
 		self.table = [None]*self.table_size
-		self.number_of_elements = 0 
+		self.number_of_elements = 0
 		self.prime = self.nearest_prime()
 
 	def nearest_prime(self):
@@ -34,38 +34,39 @@ class DoubleHash:
 				return n
 		return 3
 
-	def h1(self, key): 
+	def h1(self, key):
 		return (key % self.table_size)
 
 	def h2(self, key):
-		return self.prime - (key % self.prime)		 
-		
+		return self.prime - (key % self.prime)
+
 	def insert(self, key):
 		if(self.number_of_elements == self.table_size):
 			print("Hash Table - Full")
-			return -1
+			return (-1, -1)
 
 		isInserted = False
 		probe = 0
-		while not isInserted:	
-			index = (self.h1(key) + probe*self.h2(key)) % self.table_size 
+		while not isInserted:
+			index = (self.h1(key) + probe*self.h2(key)) % self.table_size
 			if(self.table[index] == None):
 				self.table[index] = key
-				print(f"[INSERTED] key {key} at index {index}")
+				# print(f"[INSERTED] key {key} at index {index}")
 				isInserted = True
 				self.number_of_elements +=1
 			else:
 				probe += 1
+				
 		return (index, (probe+1))
 
 	def search(self, key):
 		isFound = False
 		canFind = True
 		probe = 0
-		while (not isFound) and canFind:	
-			index = (self.h1(key) + probe*self.h2(key)) % self.table_size 
+		while ((not isFound) and canFind):
+			index = (self.h1(key) + probe*self.h2(key)) % self.table_size
 			if(self.table[index] == key):
-				print(f"[FOUND] key {key} at index {index}")
+				# print(f"[FOUND] key {key} at index {index}")
 				isFound = True
 			elif(self.table[index] == None):
 				index = -1
@@ -77,4 +78,4 @@ class DoubleHash:
 
 	def print_table(self):
 		for i in range(0, len(self.table)):
-			print(self.table[i])	
+			print(str(i) + "	|	" + str(self.table[i]))
