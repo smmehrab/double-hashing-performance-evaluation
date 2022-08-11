@@ -43,7 +43,7 @@ class DoubleHash:
 	def insert(self, key):
 		if(self.number_of_elements == self.table_size):
 			print("Hash Table - Full")
-			return self.table
+			return -1
 
 		isInserted = False
 		i = 0
@@ -56,8 +56,8 @@ class DoubleHash:
 				isInserted = True
 				self.number_of_elements +=1
 			else:
-				i +=1
-		return self.table
+				i += 1
+		return (i+1)
 
 	def print_table(self):
 		for i in range(0, len(self.table)):
