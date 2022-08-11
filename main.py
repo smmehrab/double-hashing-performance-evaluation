@@ -92,55 +92,62 @@ def perform_double_hashing():
         elif(opcode == SEARCH_OPCODE):
             index, probe = double_hash_table.search(key)
         
-        # op_info = []
-        # op_info.append(index)
-        # op_info.append(probe)
-        # DOUBLE_HASH_STATISTICS.append(op_info)
+        op_info = []
+        op_info.append(index)
+        op_info.append(probe)
+        DOUBLE_HASH_STATISTICS.append(op_info)
         append_csv(DOUBLE_HASHING_STATISTICS_FILE, probe)
         # print(str(index) + "    " + str(probe))
+    # print(DOUBLE_HASH_STATISTICS)
+    return
 
 def perform_red_black_tree():
+    global INSERT_SEARCH_SEQUENCE
+    global RED_BLACK_TREE_STATISTICS
     
+    red_black_tree = RedBlackTree()
     
+    opcode = -1
+    key = -1
+    node_key = -1
+    number_of_inspection = -1
+
+    for command in INSERT_SEARCH_SEQUENCE:
+        opcode = int(command[0])
+        key = int(command[1])
+
+        if(opcode == INSERT_OPCODE):
+            response, number_of_inspection = red_black_tree.insert_node(key)
+        elif(opcode == SEARCH_OPCODE):
+            response, number_of_inspection = red_black_tree.search_node(key)
+        
+        op_info = []
+        op_info.append(response)
+        op_info.append(number_of_inspection)
+        RED_BLACK_TREE_STATISTICS.append(op_info)
+        append_csv(RED_BLACK_TREE_STATISTICS_FILE, number_of_inspection)
+        # print(str(response) + "    " + str(number_of_inspection))
+
+    # print(RED_BLACK_TREE_STATISTICS)
     return
 
 def show_performance(data_structure_name):
 
     if(data_structure_name == "DoubleHashing"):
-
+        return
     elif(data_structure_name == "RedBlackTree"):
-
+        return
 
 def main():
 
     initialize_files()
     load_datasets()
 
-    perform_double_hashing()
-    show_performance("DoubleHashing")
+    # perform_double_hashing()
+    # show_performance("DoubleHashing")
 
     perform_red_black_tree()
-    show_performance("RedBlackTree")
-
-
-    # table_size = 5
-    # input_elements = [4,11, 29, 1, 5]
-    # double_hash_table = DoubleHash(table_size)
-    # for i in input_elements:
-    #     double_hash_table.insert(i)
-    # double_hash_table.print_table()
-
-    # rbt = RedBlackTree()
-    # rbt.insert_node(10)
-    # rbt.insert_node(20)
-    # rbt.insert_node(30)
-    # rbt.insert_node(5)
-    # rbt.insert_node(4)
-    # rbt.insert_node(2)
-    # (k, n) = rbt.insert_node(19)
-    # print(k)
-    # print(n)
-    # rbt.print_tree()
+    # show_performance("RedBlackTree")
 
 if __name__ =="__main__":
 	main()
