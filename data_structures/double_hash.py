@@ -38,7 +38,7 @@ class DoubleHash:
 		return (key % self.table_size)
 
 	def h2(self, key):
-		return self.prime - (key % self.prime)
+		return (self.prime - (key % self.prime))
 
 	def insert(self, key):
 		if(self.number_of_elements == self.table_size):
@@ -46,17 +46,18 @@ class DoubleHash:
 			return (-1, -1)
 
 		isInserted = False
+		index = 0
 		probe = 0
 		while not isInserted:
 			index = (self.h1(key) + probe*self.h2(key)) % self.table_size
 			if(self.table[index] == None):
 				self.table[index] = key
-				# print(f"[INSERTED] key {key} at index {index}")
+				print(f"[INSERTED] key {key} at index {index}")
 				isInserted = True
-				self.number_of_elements +=1
+				self.number_of_elements += 1
 			else:
 				probe += 1
-				
+
 		return (index, (probe+1))
 
 	def search(self, key):

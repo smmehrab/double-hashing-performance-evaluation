@@ -9,6 +9,8 @@
 import os
 import math
 import sys
+import statistics
+
 from data_structures.double_hash import DoubleHash as DoubleHash
 from data_structures.red_black_tree import RedBlackTree as RedBlackTree
 
@@ -143,7 +145,7 @@ def main():
     initialize_files()
     load_datasets()
 
-    # perform_double_hashing()
+    perform_double_hashing()
     # show_performance("DoubleHashing")
 
     perform_red_black_tree()
