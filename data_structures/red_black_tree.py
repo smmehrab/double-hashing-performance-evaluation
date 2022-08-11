@@ -36,7 +36,7 @@ class RedBlackTree():
                 node = node.left
             else:
                 node = node.right
-        return (-1, -1)
+        return (-1, number_of_inspection)
 
     def insert_node(self, key):
         number_of_inspection = 0
