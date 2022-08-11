@@ -46,18 +46,34 @@ class DoubleHash:
 			return -1
 
 		isInserted = False
-		i = 0
+		probe = 0
 		while not isInserted:	
-			# double_hash(k) = (h1(k) - i*h2(k)) % table_size
-			index = (self.h1(key) + i*self.h2(key)) % self.table_size 
+			index = (self.h1(key) + probe*self.h2(key)) % self.table_size 
 			if(self.table[index] == None):
 				self.table[index] = key
 				print(f"[INSERTED] key {key} at index {index}")
 				isInserted = True
 				self.number_of_elements +=1
 			else:
-				i += 1
-		return (i+1)
+				probe += 1
+		return (index, (probe+1))
+
+	def search(self, key):
+		isFound = False
+		canFind = True
+		probe = 0
+		while (not isFound) and canFind:	
+			index = (self.h1(key) + probe*self.h2(key)) % self.table_size 
+			if(self.table[index] == key):
+				print(f"[FOUND] key {key} at index {index}")
+				isFound = True
+			elif(self.table[index] == None):
+				index = -1
+				probe = -2
+				canFind = False
+			else:
+				probe += 1
+		return (index, (probe+1))
 
 	def print_table(self):
 		for i in range(0, len(self.table)):
