@@ -119,16 +119,20 @@ def main():
 
     key_set_index = 0
     search_key_set_index = 0
-    for i in range(NUMBER_OF_INSERT_SEARCH):
+
+    entry = 0
+    while entry<NUMBER_OF_INSERT_SEARCH:
         p = random.randint(1, 10)
         if(p<=7):
             if(key_set_index<NUMBER_OF_INSERT):
                 append_command(INSERT_SEARCH_SEQUENCE_FILE, INSERT_OPCODE, key_set[key_set_index])
                 key_set_index += 1
+                entry += 1
         else:
             if(search_key_set_index<NUMBER_OF_SEARCH):
                 append_command(INSERT_SEARCH_SEQUENCE_FILE, SEARCH_OPCODE, search_key_set[search_key_set_index])
                 search_key_set_index += 1
+                entry += 1
 
     insert_search_command_set = read_commands(INSERT_SEARCH_SEQUENCE_FILE)
 
