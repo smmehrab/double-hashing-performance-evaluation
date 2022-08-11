@@ -43,7 +43,7 @@ class DoubleHash:
 	def insert(self, key):
 		if(self.number_of_elements == self.table_size):
 			print("Hash Table - Full")
-			return (-1, -1)
+			return (-1, 1)
 
 		isInserted = False
 		index = 0
@@ -52,7 +52,7 @@ class DoubleHash:
 			index = (self.h1(key) + probe*self.h2(key)) % self.table_size
 			if(self.table[index] == None):
 				self.table[index] = key
-				print(f"[INSERTED] key {key} at index {index}")
+				# print(f"[INSERTED] key {key} at index {index}")
 				isInserted = True
 				self.number_of_elements += 1
 			else:
@@ -71,7 +71,6 @@ class DoubleHash:
 				isFound = True
 			elif(self.table[index] == None):
 				index = -1
-				probe = -2
 				canFind = False
 			else:
 				probe += 1
