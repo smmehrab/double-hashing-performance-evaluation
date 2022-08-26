@@ -1,4 +1,4 @@
 __pycache__/
-./data_structures/__pycache__/
-./data_structures/__init__.py/
-./performance/*
+data_structures/__pycache__/
+data_structures/__init__.py/
+performance/*
