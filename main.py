@@ -166,7 +166,7 @@ def descriptive_comparison():
     min_red_black_tree = round(min(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
 
     print('{:<35}'.format("Descriptive Comparison"))
-    print('{:<35}'.format("------------------------"))
+    print('{:<35}'.format("========================"))
     print()
     print("We've calculated min, max, mean & standard deviation for both of the algorithms.\nComparison between those performance measures are given below:\n")
     print('{:<50}'.format("------------------------------------------------------------------------"))
@@ -185,7 +185,7 @@ def tabular_comparison():
     global INSERT_SEARCH_SEQUENCE
 
     print('{:<35}'.format("Tabular Comparison"))
-    print('{:<35}'.format("------------------------"))
+    print('{:<35}'.format("========================"))
     print()
     print(f"As we've generated the insert-search sequence randomly\nif we take the performance measures of the last {NUMBER_OF_DEMO_DATA} \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
     print()
@@ -223,7 +223,7 @@ def visual_comparison():
 
 
     print('{:<35}'.format("Visual Comparison"))
-    print('{:<35}'.format("------------------------"))
+    print('{:<35}'.format("========================"))
     print()
 
     print(f"Visualizing performance measures for the last {NUMBER_OF_DEMO_DATA} insert-search sequence.\n")
@@ -271,9 +271,9 @@ def performance_comparison():
     clear_console()
 
     print()
-    print('{:<35}'.format("----------------------------------"))
+    print('{:<35}'.format("=================================="))
     print('{:<35}'.format("Double Hashing VS Red Black Tree"))
-    print('{:<35}'.format("----------------------------------"))
+    print('{:<35}'.format("=================================="))
     print()
     print("Here, the units of performance measurements are:")
     print()
@@ -282,8 +282,8 @@ def performance_comparison():
     print()
     print()
 
-    # descriptive_comparison()
-    # tabular_comparison()
+    descriptive_comparison()
+    tabular_comparison()
     visual_comparison()
 
     print("Please scroll up to read the entire performance evaluation.")
