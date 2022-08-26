@@ -151,22 +151,26 @@ def descriptive_statistics():
     # double hashing
     mean_double_hashing = round(statistics.mean(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
     stdev_double_hashing = round(statistics.stdev(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
+    max_double_hashing = round(max(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
+    min_double_hashing = round(min(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
 
     # red black tree
     mean_red_black_tree = round(statistics.mean(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
     stdev_red_black_tree = round(statistics.stdev(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
+    max_red_black_tree = round(max(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
+    min_red_black_tree = round(min(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
 
     print('{:<35}'.format("Descriptive Statistics"))
     print('{:<35}'.format("------------------------"))
     print()
     print("We've calculated mean and standard deviation for both\nof the algorithms. Comparison between those statistical\nmeasures are given below:")
     print()
-    print('{:<35}'.format("------------------------------------------------------"))
-    print(' {:<15}    {:<10}    {:<10}'.format("", "Mean", "Standard Deviation"))
-    print('{:<35}'.format("------------------------------------------------------"))
-    print(' {:<15}    {:<10}    {:<10}'.format("Double Hashing", mean_double_hashing, stdev_double_hashing))
-    print(' {:<15}    {:<10}    {:<10}'.format("Red Black Tree", mean_red_black_tree, stdev_red_black_tree))
-    print('{:<35}'.format("------------------------------------------------------"))
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+    print(' {:<15}    {:<5}    {:<5}    {:<10}    {:<10}'.format("", "Min", "Max", "Mean", "Standard Deviation"))
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+    print(' {:<15}    {:<5}    {:<5}    {:<10}    {:<10}'.format("Double Hashing", min_double_hashing, max_double_hashing, mean_double_hashing, stdev_double_hashing))
+    print(' {:<15}    {:<5}    {:<5}    {:<10}    {:<10}'.format("Red Black Tree", min_red_black_tree, max_red_black_tree, mean_red_black_tree, stdev_red_black_tree))
+    print('{:<50}'.format("------------------------------------------------------------------------"))
     print()
     print()
 
