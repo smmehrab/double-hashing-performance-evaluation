@@ -46,7 +46,11 @@ DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID = []
 RED_BLACK_TREE_PERFORMANCE_DATA = []
 RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID = []
 
-NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE = 100
+NUMBER_OF_DEMO_DATA = 100
+DATA_SCATTER_RANGE = 50
+
+DOUBLE_HASH_DATA_POINT = "*"
+RED_BLACK_TREE_DATA_POINT = "."
 
 def initialize_files():
     with open(DOUBLE_HASH_PERFORMANCE_DATA_FILE, "w") as file_object:
@@ -159,7 +163,7 @@ def descriptive_comparison():
     mean_red_black_tree = round(statistics.mean(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
     stdev_red_black_tree = round(statistics.stdev(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
     max_red_black_tree = round(max(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
-    min_red_black_tree = round(min(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
+    min_red_black_tree = round(min(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
 
     print('{:<35}'.format("Descriptive Comparison"))
     print('{:<35}'.format("------------------------"))
@@ -183,16 +187,16 @@ def tabular_comparison():
     print('{:<35}'.format("Tabular Comparison"))
     print('{:<35}'.format("------------------------"))
     print()
-    print(f"As we've generated the insert-search sequence randomly\nif we take the performance measures of the last {NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE} \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
+    print(f"As we've generated the insert-search sequence randomly\nif we take the performance measures of the last {NUMBER_OF_DEMO_DATA} \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
     print()
 
     print('{:<50}'.format("---------------------------------------------------------------"))
     print(' {:<5}    {:<10}    {:<20}    {:<20}'.format("SL", "OP", "Double Hashing", "Red Black Tree"))
     print('{:<50}'.format("---------------------------------------------------------------"))
 
-    offset = len(DOUBLE_HASH_PERFORMANCE_DATA)-NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE
+    offset = len(DOUBLE_HASH_PERFORMANCE_DATA)-NUMBER_OF_DEMO_DATA
     index = 0
-    while(index<NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE):
+    while(index<NUMBER_OF_DEMO_DATA):
         sl = offset+index+1
         op = "INSERT" if (INSERT_SEARCH_SEQUENCE[offset+index][0] == str(INSERT_OPCODE)) else "SEARCH"
         number_of_probes = DOUBLE_HASH_PERFORMANCE_DATA[offset+index]
@@ -205,9 +209,63 @@ def tabular_comparison():
     print()
 
 def visual_comparison():
-    pass
+
+    double_hash_demo_data = DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID[((-1)*NUMBER_OF_DEMO_DATA)::]
+    red_black_tree_demo_data = RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID[((-1)*NUMBER_OF_DEMO_DATA)::]
+
+    max_double_hashing = round(max(double_hash_demo_data), 3)
+    min_double_hashing = round(min(double_hash_demo_data), 3)
+    max_red_black_tree = round(max(red_black_tree_demo_data), 3)
+    min_red_black_tree = round(min(red_black_tree_demo_data), 3)
+
+    min_data = min(min_double_hashing, min_red_black_tree)
+    max_data = max(max_double_hashing, max_red_black_tree)
 
 
+    print('{:<35}'.format("Visual Comparison"))
+    print('{:<35}'.format("------------------------"))
+    print()
+
+    print(f"Visualizing performance measures for the last {NUMBER_OF_DEMO_DATA} insert-search sequence.\n")
+
+
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+
+    print(' {:<15}:    {:<25}    ({:})'.format("Double Hashing", f"Number of Probes", DOUBLE_HASH_DATA_POINT))
+    print(' {:<15}:    {:<25}    ({:})'.format("Red Black Tree", f"Number of Inspections", RED_BLACK_TREE_DATA_POINT))
+    
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+    print(' {:<15}|    {:<30}'.format("Data Value", "Data Scatter"))
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+
+    data_value = min_data
+    while(data_value<max_data):
+        print(' {:<15}|    '.format(data_value, ""), end="")
+        
+        indices  = [index for (index, item) in enumerate(double_hash_demo_data) if item == data_value]
+        data_count = 0
+        for index in indices:
+            if(data_count==DATA_SCATTER_RANGE):
+                data_count = 0
+                print()
+                print(' {:<15}     '.format("", ""), end="")
+            print(DOUBLE_HASH_DATA_POINT, end="")
+            data_count += 1
+
+        indices  = [index for (index, item) in enumerate(red_black_tree_demo_data) if item == data_value]
+        for index in indices:
+            if(data_count==DATA_SCATTER_RANGE):
+                data_count = 0
+                print()
+                print(' {:<15}     '.format("", ""), end="")
+            print(RED_BLACK_TREE_DATA_POINT, end="")
+            data_count += 1
+        
+        print()
+        data_value += 1
+
+    print('{:<50}'.format("------------------------------------------------------------------------"))
+    print()
 
 def performance_comparison():
     clear_console()
@@ -224,10 +282,12 @@ def performance_comparison():
     print()
     print()
 
-    descriptive_comparison()
-    tabular_comparison()
-    # visual_comparison()
+    # descriptive_comparison()
+    # tabular_comparison()
+    visual_comparison()
 
+    print("Please scroll up to read the entire performance evaluation.")
+    print("Thank you\n")
 
 def main():
 
