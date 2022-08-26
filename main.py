@@ -148,7 +148,7 @@ def clear_console():
     else:
         os.system('clear')
 
-def descriptive_statistics():
+def descriptive_comparison():
     # double hashing
     mean_double_hashing = round(statistics.mean(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
     stdev_double_hashing = round(statistics.stdev(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
@@ -161,7 +161,7 @@ def descriptive_statistics():
     max_red_black_tree = round(max(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
     min_red_black_tree = round(min(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
 
-    print('{:<35}'.format("Descriptive Statistics"))
+    print('{:<35}'.format("Descriptive Comparison"))
     print('{:<35}'.format("------------------------"))
     print()
     print("We've calculated mean and standard deviation for both\nof the algorithms. Comparison between those statistical\nmeasures are given below:")
@@ -175,10 +175,10 @@ def descriptive_statistics():
     print()
     print()
 
-def tabular_statistics():
+def tabular_comparison():
     global INSERT_SEARCH_SEQUENCE
 
-    print('{:<35}'.format("Tabular Statistics"))
+    print('{:<35}'.format("Tabular Comparison"))
     print('{:<35}'.format("------------------------"))
     print()
     print("As we've generated the insert-search sequence randomly\nif we take the performance measures of the last 100 \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
@@ -199,12 +199,12 @@ def tabular_statistics():
     print()
     print()
 
-def visual_statistics():
+def visual_comparison():
     pass
 
 
 
-def display_statistics():
+def performance_comparison():
     clear_console()
 
     print()
@@ -219,9 +219,9 @@ def display_statistics():
     print()
     print()
 
-    descriptive_statistics()
-    tabular_statistics()
-    # visual_statistics()
+    descriptive_performance()
+    tabular_performance()
+    # visual_performance()
 
 
 def main():
@@ -232,7 +232,7 @@ def main():
     perform_double_hashing()
     perform_red_black_tree()
 
-    display_statistics()
+    performance_comparison()
 
 if __name__ =="__main__":
 	main()
