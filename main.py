@@ -24,8 +24,8 @@ DATA_PATH = os.path.join(os.path.abspath(os.getcwd()), "data")
 STATISTICS_PATH = os.path.join(os.path.abspath(os.getcwd()), "statistics")
 KEY_SET_FILE = os.path.join(DATA_PATH, "key_set.txt")
 INSERT_SEARCH_SEQUENCE_FILE = os.path.join(DATA_PATH, "insert_search_sequence.txt")
-DOUBLE_HASHING_STATISTICS_FILE = os.path.join(STATISTICS_PATH, "double_hashing_statistics.txt")
-RED_BLACK_TREE_STATISTICS_FILE = os.path.join(STATISTICS_PATH, "red_black_tree_statistics.txt")
+DOUBLE_HASH_PERFORMANCE_DATA_FILE = os.path.join(STATISTICS_PATH, "double_hash_performance_data.txt")
+RED_BLACK_TREE_PERFORMANCE_DATA_FILE = os.path.join(STATISTICS_PATH, "red_black_tree_performance_data.txt")
 
 # data path                 :   ./data/
 #-----------------------------------------------------
@@ -38,13 +38,19 @@ SEARCH_OPCODE = 1
 
 KEY_SET = []
 INSERT_SEARCH_SEQUENCE = []
-DOUBLE_HASH_STATISTICS = []
-RED_BLACK_TREE_STATISTICS = []
+
+DOUBLE_HASH_PERFORMANCE_DATA = []
+DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID = []
+
+RED_BLACK_TREE_PERFORMANCE_DATA = []
+RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID = []
+
+NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE = 100
 
 def initialize_files():
-    with open(DOUBLE_HASHING_STATISTICS_FILE, "w") as file_object:
+    with open(DOUBLE_HASH_PERFORMANCE_DATA_FILE, "w") as file_object:
         file_object.write("")
-    with open(RED_BLACK_TREE_STATISTICS_FILE, "w") as file_object:
+    with open(RED_BLACK_TREE_PERFORMANCE_DATA_FILE, "w") as file_object:
         file_object.write("")
 
 def read_csv(file_name):
@@ -75,7 +81,7 @@ def load_datasets():
 def perform_double_hashing():
     global KEY_SET
     global INSERT_SEARCH_SEQUENCE
-    global DOUBLE_HASH_STATISTICS
+    global DOUBLE_HASH_PERFORMANCE_DATA
     
     opcode = -1
     key = -1
@@ -94,18 +100,18 @@ def perform_double_hashing():
         elif(opcode == SEARCH_OPCODE):
             index, probe = double_hash_table.search(key)
         
-        op_info = []
-        op_info.append(index)
-        op_info.append(probe)
-        DOUBLE_HASH_STATISTICS.append(op_info)
-        append_csv(DOUBLE_HASHING_STATISTICS_FILE, probe)
+        if(index != -1):
+            DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID.append(probe)
+
+        DOUBLE_HASH_PERFORMANCE_DATA.append(probe)
+        append_csv(DOUBLE_HASH_PERFORMANCE_DATA_FILE, probe)
         # print(str(index) + "    " + str(probe))
-    # print(DOUBLE_HASH_STATISTICS)
+    # print(DOUBLE_HASH_PERFORMANCE_DATA)
     return
 
 def perform_red_black_tree():
     global INSERT_SEARCH_SEQUENCE
-    global RED_BLACK_TREE_STATISTICS
+    global RED_BLACK_TREE_PERFORMANCE_DATA
     
     red_black_tree = RedBlackTree()
     
@@ -123,22 +129,94 @@ def perform_red_black_tree():
         elif(opcode == SEARCH_OPCODE):
             response, number_of_inspection = red_black_tree.search_node(key)
         
-        op_info = []
-        op_info.append(response)
-        op_info.append(number_of_inspection)
-        RED_BLACK_TREE_STATISTICS.append(op_info)
-        append_csv(RED_BLACK_TREE_STATISTICS_FILE, number_of_inspection)
+        if(response != -1):
+            RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID.append(number_of_inspection)
+
+        RED_BLACK_TREE_PERFORMANCE_DATA.append(number_of_inspection)
+        append_csv(RED_BLACK_TREE_PERFORMANCE_DATA_FILE, number_of_inspection)
         # print(str(response) + "    " + str(number_of_inspection))
 
-    # print(RED_BLACK_TREE_STATISTICS)
+    # print(RED_BLACK_TREE_PERFORMANCE_DATA)
     return
 
-def show_performance(data_structure_name):
+def clear_console():
+    # windows
+    if os.name == 'nt':
+        os.system('cls')
+    # linux/mac
+    else:
+        os.system('clear')
 
-    if(data_structure_name == "DoubleHashing"):
-        return
-    elif(data_structure_name == "RedBlackTree"):
-        return
+def descriptive_statistics():
+    # double hashing
+    mean_double_hashing = round(statistics.mean(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
+    stdev_double_hashing = round(statistics.stdev(DOUBLE_HASH_PERFORMANCE_DATA_ONLY_VALID), 3)
+
+    # red black tree
+    mean_red_black_tree = round(statistics.mean(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
+    stdev_red_black_tree = round(statistics.stdev(RED_BLACK_TREE_PERFORMANCE_DATA_ONLY_VALID), 3)
+
+    print('{:<35}'.format("Descriptive Statistics"))
+    print('{:<35}'.format("------------------------"))
+    print()
+    print("We've calculated mean and standard deviation for both\nof the algorithms. Comparison between those statistical\nmeasures are given below:")
+    print()
+    print('{:<35}'.format("------------------------------------------------------"))
+    print(' {:<15}    {:<10}    {:<10}'.format("", "Mean", "Standard Deviation"))
+    print('{:<35}'.format("------------------------------------------------------"))
+    print(' {:<15}    {:<10}    {:<10}'.format("Double Hashing", mean_double_hashing, stdev_double_hashing))
+    print(' {:<15}    {:<10}    {:<10}'.format("Red Black Tree", mean_red_black_tree, stdev_red_black_tree))
+    print('{:<35}'.format("------------------------------------------------------"))
+    print()
+    print()
+
+# def tabular_statistics():
+#     print('{:<35}'.format("Tabular Statistics"))
+#     print('{:<35}'.format("------------------------"))
+#     print()
+#     print("As we've generated the insert-search sequence randomly\nif we take the performance measures of the first 100 \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nSo, the comparison is given below:")
+#     print()
+
+#     print('{:<50}'.format("------------------------------------------------------------"))
+#     print(' {:<15}    {:<20}    {:<20}'.format("Insert-Search", "Double Hashing", "Red Black Tree"))
+#     print('{:<50}'.format("------------------------------------------------------------"))
+
+#     index = 0
+#     while(index<NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE):
+#         print(' {:<15}    {:<20}    {:<20}'.format(index+1, DOUBLE_HASH_PERFORMANCE_DATA[index], RED_BLACK_TREE_PERFORMANCE_DATA[index]))
+#         index += 1
+
+#     print('{:<50}'.format("------------------------------------------------------------"))
+#     print()
+#     print()
+
+
+
+
+def visual_statistics():
+    pass
+
+
+
+def display_statistics():
+    clear_console()
+
+    print()
+    print('{:<35}'.format("----------------------------------"))
+    print('{:<35}'.format("Double Hashing VS Red Black Tree"))
+    print('{:<35}'.format("----------------------------------"))
+    print()
+    print("Here, the units of performance measurements are:")
+    print()
+    print('{:<15}:    {:<15}'.format("Double Hashing", "Number of Probes"))
+    print('{:<15}:    {:<15}'.format("Red Black Tree", "Number of Inspections"))
+    print()
+    print()
+
+    descriptive_statistics()
+    # tabular_statistics()
+    # visual_statistics()
+
 
 def main():
 
@@ -146,10 +224,9 @@ def main():
     load_datasets()
 
     perform_double_hashing()
-    # show_performance("DoubleHashing")
-
     perform_red_black_tree()
-    # show_performance("RedBlackTree")
+
+    display_statistics()
 
 if __name__ =="__main__":
 	main()
