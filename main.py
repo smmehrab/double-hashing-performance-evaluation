@@ -176,23 +176,26 @@ def descriptive_statistics():
     print()
 
 def tabular_statistics():
+    global INSERT_SEARCH_SEQUENCE
+
     print('{:<35}'.format("Tabular Statistics"))
     print('{:<35}'.format("------------------------"))
     print()
     print("As we've generated the insert-search sequence randomly\nif we take the performance measures of the last 100 \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
     print()
 
-    print('{:<50}'.format("------------------------------------------------------------"))
-    print(' {:<15}    {:<20}    {:<20}'.format("Insert-Search", "Double Hashing", "Red Black Tree"))
-    print('{:<50}'.format("------------------------------------------------------------"))
+    print('{:<50}'.format("---------------------------------------------------------------"))
+    print(' {:<5}    {:<10}    {:<20}    {:<20}'.format("SL", "OP", "Double Hashing", "Red Black Tree"))
+    print('{:<50}'.format("---------------------------------------------------------------"))
 
     offset = len(DOUBLE_HASH_PERFORMANCE_DATA)-100
     index = 0
     while(index<NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE):
-        print(' {:<15}    {:<20}    {:<20}'.format(offset+index+1, DOUBLE_HASH_PERFORMANCE_DATA[offset+index], RED_BLACK_TREE_PERFORMANCE_DATA[offset+index]))
+        op = "INSERT" if (INSERT_SEARCH_SEQUENCE[offset+index][0] == str(INSERT_OPCODE)) else "SEARCH"
+        print(' {:<5}    {:<10}    {:<20}    {:<20}'.format(offset+index+1, op , DOUBLE_HASH_PERFORMANCE_DATA[offset+index], RED_BLACK_TREE_PERFORMANCE_DATA[offset+index]))
         index += 1
 
-    print('{:<50}'.format("------------------------------------------------------------"))
+    print('{:<50}'.format("---------------------------------------------------------------"))
     print()
     print()
 
