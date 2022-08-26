@@ -164,8 +164,7 @@ def descriptive_comparison():
     print('{:<35}'.format("Descriptive Comparison"))
     print('{:<35}'.format("------------------------"))
     print()
-    print("We've calculated mean and standard deviation for both\nof the algorithms. Comparison between those statistical\nmeasures are given below:")
-    print()
+    print("We've calculated min, max, mean & standard deviation for both of the algorithms.\nComparison between those performance measures are given below:\n")
     print('{:<50}'.format("------------------------------------------------------------------------"))
     print(' {:<15}    {:<5}    {:<5}    {:<10}    {:<10}'.format("", "Min", "Max", "Mean", "Standard Deviation"))
     print('{:<50}'.format("------------------------------------------------------------------------"))
@@ -173,7 +172,10 @@ def descriptive_comparison():
     print(' {:<15}    {:<5}    {:<5}    {:<10}    {:<10}'.format("Red Black Tree", min_red_black_tree, max_red_black_tree, mean_red_black_tree, stdev_red_black_tree))
     print('{:<50}'.format("------------------------------------------------------------------------"))
     print()
-    print()
+
+    print("So, the above table indicates that the red-black-tree can definitely outperform\ndouble-hashing in some worst case scenario. As the maximum performance measure\nof double hashing is worse than the one of red-black-tree.\n")
+    print("But the mean performance measure of double-hashing is way better than that of\nred-black-tree. Thus, in general (average case scenarios), the double-hashing\nwill always outperform red-black-tree.\n\n")
+
 
 def tabular_comparison():
     global INSERT_SEARCH_SEQUENCE
