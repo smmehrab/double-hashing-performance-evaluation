@@ -181,18 +181,21 @@ def tabular_comparison():
     print('{:<35}'.format("Tabular Comparison"))
     print('{:<35}'.format("------------------------"))
     print()
-    print("As we've generated the insert-search sequence randomly\nif we take the performance measures of the last 100 \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
+    print(f"As we've generated the insert-search sequence randomly\nif we take the performance measures of the last {NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE} \ninsert-search sequence for both of the algorithms, we\nshould get a useful comparison between both algorithms\nbased on some random insert-search sequence.\n\nBecause taking last 100 insert-search will ensure that\nwe are comparing between a largely populated double\nhash table & a largely populated red black tree over a\nrandom set of operations on some random set of data.\n\nSo, the comparison is given below:")
     print()
 
     print('{:<50}'.format("---------------------------------------------------------------"))
     print(' {:<5}    {:<10}    {:<20}    {:<20}'.format("SL", "OP", "Double Hashing", "Red Black Tree"))
     print('{:<50}'.format("---------------------------------------------------------------"))
 
-    offset = len(DOUBLE_HASH_PERFORMANCE_DATA)-100
+    offset = len(DOUBLE_HASH_PERFORMANCE_DATA)-NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE
     index = 0
     while(index<NUMBER_OF_ROWS_IN_DATA_COMPARISON_TABLE):
+        sl = offset+index+1
         op = "INSERT" if (INSERT_SEARCH_SEQUENCE[offset+index][0] == str(INSERT_OPCODE)) else "SEARCH"
-        print(' {:<5}    {:<10}    {:<20}    {:<20}'.format(offset+index+1, op , DOUBLE_HASH_PERFORMANCE_DATA[offset+index], RED_BLACK_TREE_PERFORMANCE_DATA[offset+index]))
+        number_of_probes = DOUBLE_HASH_PERFORMANCE_DATA[offset+index]
+        number_of_inspection = RED_BLACK_TREE_PERFORMANCE_DATA[offset+index]
+        print(' {:<5}    {:<10}    {:<20}    {:<20}'.format(sl, op , number_of_probes, number_of_inspection))
         index += 1
 
     print('{:<50}'.format("---------------------------------------------------------------"))
@@ -219,9 +222,9 @@ def performance_comparison():
     print()
     print()
 
-    descriptive_performance()
-    tabular_performance()
-    # visual_performance()
+    descriptive_comparison()
+    tabular_comparison()
+    # visual_comparison()
 
 
 def main():
