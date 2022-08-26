@@ -21,11 +21,12 @@ from data_structures.red_black_tree import RedBlackTree as RedBlackTree
 #-----------------------------------------------------
 
 DATA_PATH = os.path.join(os.path.abspath(os.getcwd()), "data")
-STATISTICS_PATH = os.path.join(os.path.abspath(os.getcwd()), "statistics")
 KEY_SET_FILE = os.path.join(DATA_PATH, "key_set.txt")
 INSERT_SEARCH_SEQUENCE_FILE = os.path.join(DATA_PATH, "insert_search_sequence.txt")
-DOUBLE_HASH_PERFORMANCE_DATA_FILE = os.path.join(STATISTICS_PATH, "double_hash_performance_data.txt")
-RED_BLACK_TREE_PERFORMANCE_DATA_FILE = os.path.join(STATISTICS_PATH, "red_black_tree_performance_data.txt")
+
+PERFORMANCE_PATH = os.path.join(os.path.abspath(os.getcwd()), "performance")
+DOUBLE_HASH_PERFORMANCE_DATA_FILE = os.path.join(PERFORMANCE_PATH, "double_hash_performance.txt")
+RED_BLACK_TREE_PERFORMANCE_DATA_FILE = os.path.join(PERFORMANCE_PATH, "red_black_tree_performance.txt")
 
 # data path                 :   ./data/
 #-----------------------------------------------------
