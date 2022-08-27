@@ -1,0 +1,193 @@
+[H[2J[3J
+================================== 
+Double Hashing VS Red Black Tree   
+================================== 
+
+Here, the units of performance measurements are:
+
+Double Hashing :    Number of Probes
+Red Black Tree :    Number of Inspections
+
+
+Descriptive Comparison             
+========================           
+
+We've calculated min, max, mean & standard deviation for both of the algorithms.
+Comparison between those performance measures are given below:
+
+------------------------------------------------------------------------
+                    Min      Max      Mean          Standard Deviation
+------------------------------------------------------------------------
+ Double Hashing     1        43       2.114         2.289     
+ Red Black Tree     0        22       12.92         2.157     
+------------------------------------------------------------------------
+
+So, the above table indicates that the red-black-tree can definitely outperform
+double-hashing in some worst case scenario. As the maximum performance measure
+of double hashing is worse than the one of red-black-tree.
+
+But the mean performance measure of double-hashing is way better than that of
+red-black-tree. Thus, in general (average case scenarios), the double-hashing
+will always outperform red-black-tree.
+
+
+Tabular Comparison                 
+========================           
+
+As we've generated the insert-search sequence randomly
+if we take the performance measures of the last 100 
+insert-search sequence for both of the algorithms, we
+should get a useful comparison between both algorithms
+based on some random insert-search sequence.
+
+Because taking last 100 insert-search will ensure that
+we are comparing between a largely populated double
+hash table & a largely populated red black tree over a
+random set of operations on some random set of data.
+
+So, the comparison is given below:
+
+---------------------------------------------------------------
+ SL       OP            Double Hashing          Red Black Tree      
+---------------------------------------------------------------
+ 12901    INSERT        6                       15                  
+ 12902    INSERT        3                       13                  
+ 12903    INSERT        8                       12                  
+ 12904    INSERT        14                      13                  
+ 12905    INSERT        17                      14                  
+ 12906    INSERT        5                       15                  
+ 12907    INSERT        8                       12                  
+ 12908    INSERT        2                       11                  
+ 12909    INSERT        3                       12                  
+ 12910    INSERT        4                       14                  
+ 12911    INSERT        6                       14                  
+ 12912    INSERT        6                       13                  
+ 12913    INSERT        2                       13                  
+ 12914    INSERT        6                       13                  
+ 12915    INSERT        1                       13                  
+ 12916    INSERT        2                       14                  
+ 12917    INSERT        3                       17                  
+ 12918    INSERT        5                       14                  
+ 12919    INSERT        13                      16                  
+ 12920    INSERT        2                       13                  
+ 12921    INSERT        5                       16                  
+ 12922    INSERT        2                       13                  
+ 12923    INSERT        2                       15                  
+ 12924    INSERT        11                      16                  
+ 12925    INSERT        2                       15                  
+ 12926    INSERT        21                      14                  
+ 12927    INSERT        5                       13                  
+ 12928    INSERT        4                       13                  
+ 12929    INSERT        10                      15                  
+ 12930    INSERT        4                       15                  
+ 12931    INSERT        3                       15                  
+ 12932    INSERT        16                      16                  
+ 12933    INSERT        2                       15                  
+ 12934    INSERT        4                       14                  
+ 12935    INSERT        9                       14                  
+ 12936    INSERT        7                       15                  
+ 12937    INSERT        10                      13                  
+ 12938    INSERT        1                       14                  
+ 12939    INSERT        3                       14                  
+ 12940    INSERT        4                       17                  
+ 12941    INSERT        5                       13                  
+ 12942    INSERT        19                      15                  
+ 12943    INSERT        6                       17                  
+ 12944    INSERT        1                       15                  
+ 12945    INSERT        2                       15                  
+ 12946    INSERT        8                       14                  
+ 12947    INSERT        5                       15                  
+ 12948    INSERT        2                       16                  
+ 12949    INSERT        6                       17                  
+ 12950    INSERT        6                       14                  
+ 12951    INSERT        12                      13                  
+ 12952    INSERT        4                       14                  
+ 12953    INSERT        22                      14                  
+ 12954    INSERT        1                       13                  
+ 12955    INSERT        1                       17                  
+ 12956    INSERT        1                       14                  
+ 12957    INSERT        1                       13                  
+ 12958    INSERT        6                       16                  
+ 12959    INSERT        7                       19                  
+ 12960    INSERT        13                      18                  
+ 12961    INSERT        3                       15                  
+ 12962    INSERT        5                       14                  
+ 12963    INSERT        2                       14                  
+ 12964    INSERT        1                       16                  
+ 12965    INSERT        2                       17                  
+ 12966    INSERT        13                      14                  
+ 12967    INSERT        3                       16                  
+ 12968    INSERT        2                       17                  
+ 12969    INSERT        4                       14                  
+ 12970    INSERT        4                       15                  
+ 12971    INSERT        3                       17                  
+ 12972    INSERT        5                       13                  
+ 12973    INSERT        8                       15                  
+ 12974    INSERT        20                      13                  
+ 12975    INSERT        11                      15                  
+ 12976    INSERT        2                       12                  
+ 12977    INSERT        14                      14                  
+ 12978    INSERT        5                       16                  
+ 12979    INSERT        3                       13                  
+ 12980    INSERT        7                       17                  
+ 12981    INSERT        2                       14                  
+ 12982    INSERT        8                       15                  
+ 12983    INSERT        1                       14                  
+ 12984    INSERT        21                      14                  
+ 12985    INSERT        3                       15                  
+ 12986    INSERT        3                       16                  
+ 12987    INSERT        2                       14                  
+ 12988    INSERT        2                       14                  
+ 12989    INSERT        6                       12                  
+ 12990    INSERT        2                       15                  
+ 12991    INSERT        4                       14                  
+ 12992    INSERT        2                       16                  
+ 12993    INSERT        1                       13                  
+ 12994    INSERT        4                       13                  
+ 12995    INSERT        3                       13                  
+ 12996    INSERT        4                       17                  
+ 12997    INSERT        23                      14                  
+ 12998    INSERT        3                       13                  
+ 12999    INSERT        3                       16                  
+ 13000    INSERT        1                       14                  
+---------------------------------------------------------------
+
+
+Visual Comparison                  
+========================           
+
+Visualizing performance measures for the last 100 insert-search sequence.
+
+------------------------------------------------------------------------
+ Double Hashing :    Number of Probes             (*)
+ Red Black Tree :    Number of Inspections        (.)
+------------------------------------------------------------------------
+ Data Value     |    Data Scatter                  
+------------------------------------------------------------------------
+ 1              |    ***********
+ 2              |    *******************
+ 3              |    **************
+ 4              |    ***********
+ 5              |    *********
+ 6              |    *********
+ 7              |    ***
+ 8              |    *****
+ 9              |    *
+ 10             |    **
+ 11             |    **.
+ 12             |    *.....
+ 13             |    ***......................
+ 14             |    **............................
+ 15             |    ....................
+ 16             |    *............
+ 17             |    *..........
+ 18             |    .
+ 19             |    *.
+ 20             |    *
+ 21             |    **
+ 22             |    *
+------------------------------------------------------------------------
+
+Please scroll up to read the entire performance evaluation.
+Thank you
+
